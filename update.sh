@@ -1,6 +1,6 @@
 !#/bin/bash
 
-cd Downloads/arkdep
+cd ~/Downloads/arkdep
 git pull
 git fetch upstream
 git merge upstream/main
