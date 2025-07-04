@@ -1,0 +1,17 @@
+container_name: archcontainer
+image: docker.io/library/archlinux:latest 
+pull: true
+post_init_hooks: |
+  # Add your package installations and configurations here
+  # git clone https://aur.archlinux.org/yay.git
+  # cd yay
+  # makepkg -si
+  # onedrive-abraunegg \
+  # r-rjava \
+  # rstudio-desktop-bin \
+  # visual-studio-code-bin \
+  # warp-terminal-bin \
+  git \
+  build-devel \
+  micro \
+  bat
