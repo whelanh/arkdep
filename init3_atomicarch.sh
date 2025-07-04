@@ -16,3 +16,9 @@ micro ~/.config/systemd/user/onedrive.service
 systemctl --user daemon-reload
 systemctl --user enable onedrive
 systemctl --user start onedrive
+
+cd ~/Downloads
+https://github.com/official-stockfish/Stockfish.git
+cp ~/distrobox-arch/OneDrive/makeSF.sh .
+chmod +x ./makeSF.sh
+./makeSF.sh
