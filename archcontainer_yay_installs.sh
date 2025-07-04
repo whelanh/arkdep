@@ -11,4 +11,4 @@ distrobox-export --app rstudio
 distrobox-export --app warp-terminal
 distrobox-export --bin /usr/bin/onedrive
 distrobox-export --app code
-distrobox export --app insync
+distrobox-export --app insync
