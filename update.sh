@@ -11,6 +11,6 @@ sudo arkdep-build atomicarch
 sudo cp target/atomicarch-202*.tar.zst /arkdep/cache/
 
 cd /arkdep/cache
-sudo arkdep deploy cache ""atomicarch-$(date +%Y%m%d)*.tar.zst
+sudo arkdep deploy cache atomicarch
 
 flatpak update
