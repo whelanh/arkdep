@@ -65,3 +65,38 @@ arkane-wallpapers
 v4l-utils
 v4l2loopback-dkms
 v4l2loopback-utils
+
+# Atomic Arch (custom)
+bat
+base-devel
+bc
+chezmoi
+duf
+eza
+fastfetch
+gcc-fortran
+gnome-weather
+gnome-clocks
+gnome-tweaks
+kmymoney
+lftp
+micro
+python-colorama
+python-numpy
+python-pandas
+python-pip
+python-pipenv
+python-prettytable
+python-pyperclip
+python-reportlab
+python-suds
+python-svglib
+r
+sqlitebrowser
+tailscale
+ttf-meslo-nerd
+virt-manager
+virt-viewer
+
+# items from yay: visual-studio-code-bin rstudio-desktop-bin warp-terminal-bin  onedrive-abraunegg r-rjava
+# flatpak items: flatseal alpaca scid github-desktop zed-preview boxbuddy
