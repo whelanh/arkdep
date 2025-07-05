@@ -10,6 +10,7 @@ pip install chess --break-system-packages
 
 # Install Brew
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+brew install onedrive
 
 # Download Appimage for Warp terminal, chmod + x, add ~/distrobox-arch/OneDrive/warp.desktop to ~/local/share/applications...may need to make directory
 # update-desktop-database ~/.local/share/applications
