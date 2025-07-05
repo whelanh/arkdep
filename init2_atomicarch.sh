@@ -12,5 +12,14 @@ pip install chess --break-system-packages
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 brew install onedrive
 
+cd ~/Downloads
+https://github.com/official-stockfish/Stockfish.git
+cp ~/OneDrive/makeSF.sh .
+chmod +x ./makeSF.sh
+./makeSF.sh
+
+sudo systemctl enable --now tailscaled
+sudo tailscale up --ssh
+
 # Download Appimage for Warp terminal, chmod + x, add ~/distrobox-arch/OneDrive/warp.desktop to ~/local/share/applications...may need to make directory
 # update-desktop-database ~/.local/share/applications
