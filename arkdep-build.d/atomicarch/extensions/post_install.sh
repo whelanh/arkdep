@@ -4,7 +4,7 @@
 #
 
 # Set list of AUR packages to install
-aur_packages=('yay-bin' 'rstudio-desktop-bin' 'r-rjavav')
+aur_packages=('yay-bin' 'rstudio-desktop-bin' 'r-rjava')
 
 # Install build dependencies
 printf '\e[1;32m-->\e[0m\e[1m Installing build dependencies\e[0m\n'
