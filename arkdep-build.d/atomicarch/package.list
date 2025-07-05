@@ -93,6 +93,7 @@ python-reportlab
 python-suds
 python-svglib
 r
+rclone
 sqlitebrowser
 tailscale
 ttf-meslo-nerd
