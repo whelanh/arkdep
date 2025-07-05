@@ -2,7 +2,7 @@
 
 cd ~/Downloads
 https://github.com/official-stockfish/Stockfish.git
-cp ~/distrobox-arch/OneDrive/makeSF.sh .
+cp ~/OneDrive/makeSF.sh .
 chmod +x ./makeSF.sh
 ./makeSF.sh
 
