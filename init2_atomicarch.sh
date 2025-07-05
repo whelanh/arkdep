@@ -1,4 +1,4 @@
-!#/bin/bash
+#!/bin/bash
 
 flatpak install com.visualstudio.code com.jeffser.Alpaca dev.zed.Zed-Preview  io.github.benini.scid io.github.shiftey.Desktop  io.github.dvlv.boxbuddyrs com.github.tchx84.Flatseal
 

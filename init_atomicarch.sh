@@ -1,4 +1,4 @@
-!#/bin/bash
+#!/bin/bash
 
 cd Downloads
 git clone --recurse-submodules https://github.com/whelanh/arkdep.git
