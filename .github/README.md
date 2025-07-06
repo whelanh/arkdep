@@ -1,6 +1,14 @@
 # Automated AtomicArch Builds
 
-This repository provides automated daily builds of AtomicArch configurations using GitHub Actions.
+This repository provides automated daily builds of AtomicArch configurations using GitHub Actions. AtomicArch is a
+customized Arkane Linux image and is only useful if you already have installed Arkane.  You should refer 
+to https://arkanelinux.org/ for full details on Arkane Linux.
+
+This customization was designed to emulate Bluefin-dx. In addition to the image, there is an init script to install 
+AtomicArch.  There is a second init script after you've installed this customized image to add useful Flatpaks,
+chezmoi, Brew etc.
+
+The arkdep-build.d/atomicarch/extensions/post_install.sh does also add two AUR packages - rstudio-desktop-bin and r-rjava.
 
 ## Workflow
 
