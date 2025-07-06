@@ -1,4 +1,6 @@
-AtomicArch
+### `AtomicArch`
+
+![Arkane Linux](./Arkane.png)
 
 AtomicArch is a customized Arkane Linux image and is only useful if you already have installed Arkane.  You should refer 
 to https://arkanelinux.org/ for full details on Arkane Linux.
