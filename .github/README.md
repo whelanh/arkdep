@@ -1,84 +1,133 @@
 # Automated AtomicArch Builds
 
-This repository includes GitHub Actions workflows that automatically build AtomicArch images daily.
+This repository provides automated daily builds of AtomicArch configurations using GitHub Actions.
 
-## Workflows
+## Workflow
 
-### 1. `build-atomicarch-simple.yml` (Recommended)
-- Uses an Arch Linux container with proper loop device support
-- Simplified setup with explicit dependency installation
-- Runs daily at 2:00 AM UTC
-- Can be triggered manually via GitHub Actions tab
-- Creates releases with build artifacts
+### `build-atomicarch.yml` (Main Workflow)
+- **Runs daily at 2:00 AM UTC** automatically
+- **Can be triggered manually** via GitHub Actions interface  
+- **Creates configuration-only builds** optimized for GitHub Actions storage constraints
+- **Validates configurations** without requiring 50GB+ storage
+- **Generates releases** with downloadable configuration archives
 
-### 2. `build-atomicarch-container.yml` (Fixed)
-- Updated to install arch-install-scripts properly
-- Same functionality as simple version
-- Use if simple version fails
+## What You Get
 
-### 3. `build-atomicarch.yml` (Complex fallback)
-- Attempts to set up Arch Linux tools on Ubuntu
-- More complex setup, use only if container approaches fail
-- Same scheduling and functionality
+**Configuration-Only Builds** containing:
+- ✅ All AtomicArch configuration files
+- ✅ Package lists and dependencies
+- ✅ Overlay files and customizations  
+- ✅ Build scripts and metadata
+- ✅ Validation that configurations work
+
+**NOT included** (due to storage constraints):
+- ❌ Complete system images (requires 50GB+ storage)
+- ❌ Bootable filesystems
+- ❌ Full package installations
 
 ## Features
 
-- **Daily automated builds** at 2:00 AM UTC
-- **Manual triggering** via GitHub Actions interface
-- **Automatic releases** with downloadable artifacts
-- **Cleanup** - keeps only the latest 7 builds
-- **Triggered on changes** to atomicarch configuration
+- **Daily automated builds** - Stay up-to-date with configuration changes
+- **Manual triggering** - Build on-demand via GitHub Actions
+- **Automatic releases** - Downloadable archives with each build
+- **Smart cleanup** - Keeps only the latest 5 builds
+- **Change detection** - Triggers on atomicarch configuration updates
+- **Version comparison** - Track changes between builds
 
 ## Build Artifacts
 
 Each successful build creates:
-1. **GitHub Release** with timestamp tag (e.g., `atomicarch-20250706021500`)
-2. **Compressed archive** containing the built image
+1. **GitHub Release** with timestamp tag (e.g., `atomicarch-minimal-20250706021500`)
+2. **Compressed configuration archive** (a few MB)
 3. **Build artifacts** available for 30 days in Actions tab
+4. **Build validation** - ensures your configuration works
 
 ## Manual Triggering
 
 1. Go to your repository on GitHub
-2. Click "Actions" tab
-3. Select "Build AtomicArch Daily (Container)"
-4. Click "Run workflow"
-5. Select branch and click "Run workflow"
+2. Click **"Actions"** tab
+3. Select **"Build AtomicArch Daily"**
+4. Click **"Run workflow"**
+5. Select branch and click **"Run workflow"**
 
-## Download Built Images
+## Using Build Products
 
-1. Go to "Releases" section of your repository
-2. Download the latest `atomicarch-*.tar.gz` file
-3. Extract: `tar -xzf atomicarch-*.tar.gz`
-4. Use with arkdep as normal
+### Download Configuration Archives
+```bash
+# Get latest release
+curl -L "https://github.com/whelanh/arkdep/releases/latest/download/atomicarch-minimal-*.tar.gz" -o latest-config.tar.gz
+
+# Extract configuration
+tar -xzf latest-config.tar.gz
+```
+
+### Create Full System Build
+```bash
+# On a system with 50GB+ storage
+tar -xzf atomicarch-minimal-*.tar.gz
+cd arkdep  # or extracted directory
+sudo arkdep-build atomicarch
+```
+
+### Compare Versions
+```bash
+# Use the provided comparison tool
+./compare-versions.sh              # Compare latest two
+./compare-versions.sh -v           # Detailed comparison
+./compare-versions.sh -d package.list  # Specific file diff
+```
 
 ## Customization
 
 ### Change Build Schedule
-Edit the cron expression in the workflow files:
+Edit `.github/workflows/build-atomicarch.yml`:
 ```yaml
 schedule:
   - cron: '0 2 * * *'  # Daily at 2:00 AM UTC
 ```
 
 ### Keep More/Fewer Builds
-Modify the cleanup script in the workflow:
+Modify the cleanup section:
 ```javascript
-.slice(7);  // Keep 7 builds, change as needed
+.slice(5);  // Keep 5 builds, change as needed
 ```
 
-### Modify Build Parameters
-Edit `arkdep-build.d/atomicarch/` configuration files to customize the build.
+### Modify AtomicArch Configuration
+Edit files in `arkdep-build.d/atomicarch/` to customize your build:
+- `package.list` - Main packages
+- `bootstrap.list` - Bootstrap packages  
+- `pacman.conf` - Pacman configuration
+- `overlay/` - Custom files and configurations
 
 ## Troubleshooting
 
-If builds fail:
-1. Check the Actions tab for error logs
-2. Ensure arkdep-build script is executable
-3. Verify atomicarch configuration is valid
-4. Try running manually to test
+### Build Failures
+1. Check **Actions** tab for detailed error logs
+2. Verify configuration files are valid
+3. Test locally: `sudo arkdep-build atomicarch`
+4. Use version comparison to see what changed
 
-## Requirements
+### No Releases Created
+- Ensure repository has **Actions** enabled
+- Check workflow permissions in repository settings
+- Verify the workflow completed successfully
 
-- Repository must be public or have GitHub Actions enabled
-- Default GitHub token permissions are sufficient
-- No additional secrets required
+### Comparison Tool Issues
+```bash
+# Ensure dependencies are available
+which curl diff comm sort grep
+
+# Make script executable
+chmod +x compare-versions.sh
+```
+
+## Architecture
+
+This system provides:
+- **Daily validation** of AtomicArch configurations
+- **Lightweight builds** that fit GitHub Actions constraints  
+- **Version tracking** for configuration changes
+- **Foundation** for full builds on proper hardware
+- **Change monitoring** through comparison tools
+
+The approach solves the "50GB requirement vs 14GB available" problem by creating configuration-only builds that validate your setup and provide everything needed for full builds elsewhere.
