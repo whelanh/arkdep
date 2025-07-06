@@ -10,7 +10,7 @@ chezmoi init --apply https://github.com/whelanh/dotfiles.git
 # Install Python chess module
 pip install chess --break-system-packages
 
-# Install Brew
+# Install Brew.  Used for OneDrive integration (could also do Tailscale that way)
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 brew install onedrive
 
