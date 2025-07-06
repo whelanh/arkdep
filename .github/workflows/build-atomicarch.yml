@@ -303,7 +303,7 @@ jobs:
           const atomicArchReleases = releases
             .filter(release => release.tag_name.includes('atomicarch'))
             .sort((a, b) => new Date(b.created_at) - new Date(a.created_at))
-            .slice(5);
+            .slice(3);
           
           for (const release of atomicArchReleases) {
             console.log(`Deleting old release: ${release.tag_name}`);
