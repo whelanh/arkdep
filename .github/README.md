@@ -4,15 +4,21 @@ This repository includes GitHub Actions workflows that automatically build Atomi
 
 ## Workflows
 
-### 1. `build-atomicarch-container.yml` (Recommended)
-- Uses an Arch Linux container for native environment
+### 1. `build-atomicarch-simple.yml` (Recommended)
+- Uses an Arch Linux container with proper loop device support
+- Simplified setup with explicit dependency installation
 - Runs daily at 2:00 AM UTC
 - Can be triggered manually via GitHub Actions tab
 - Creates releases with build artifacts
 
-### 2. `build-atomicarch.yml` (Alternative)
+### 2. `build-atomicarch-container.yml` (Fixed)
+- Updated to install arch-install-scripts properly
+- Same functionality as simple version
+- Use if simple version fails
+
+### 3. `build-atomicarch.yml` (Complex fallback)
 - Attempts to set up Arch Linux tools on Ubuntu
-- Fallback option if container approach fails
+- More complex setup, use only if container approaches fail
 - Same scheduling and functionality
 
 ## Features

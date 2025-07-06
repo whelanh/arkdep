@@ -1,4 +1,4 @@
-name: Build AtomicArch Daily (Simple)
+name: Build AtomicArch Daily (Minimal)
 
 on:
   schedule:
@@ -10,7 +10,7 @@ on:
     paths:
       - 'arkdep-build.d/atomicarch/**'
       - 'arkdep-build'
-      - '.github/workflows/build-atomicarch-simple.yml'
+      - '.github/workflows/build-atomicarch-minimal.yml'
 
 env:
   IMAGE_NAME: atomicarch
@@ -26,98 +26,74 @@ jobs:
       packages: write
 
     steps:
-    - name: Install essential tools
+    - name: Maximize available storage
       run: |
-        # Update system and install essential packages
-        pacman -Syu --noconfirm
-        pacman -S --noconfirm git base-devel btrfs-progs squashfs-tools xz wget curl
-
-    - name: Install arch-install-scripts and dependencies
-      run: |
-        # Install arch-install-scripts which provides pacstrap
-        pacman -S --noconfirm arch-install-scripts
+        # Remove unnecessary packages to free space
+        pacman -Rns --noconfirm $(pacman -Qtdq) 2>/dev/null || true
+        pacman -Scc --noconfirm
         
-        # Verify the tools are available
-        which pacstrap
-        which btrfs
+        # Remove unnecessary files
+        rm -rf /usr/share/{man,doc,info,locale}/* || true
+        rm -rf /var/cache/pacman/pkg/* || true
+        rm -rf /var/lib/pacman/sync/* || true
+        rm -rf /tmp/* /var/tmp/* || true
+        
+        echo "Available storage after cleanup:"
+        df -h
+
+    - name: Install minimal required packages
+      run: |
+        # Only install what we absolutely need
+        pacman -Sy --noconfirm
+        pacman -S --noconfirm --needed git arch-install-scripts btrfs-progs
 
     - name: Checkout repository
       uses: actions/checkout@v4
 
-    - name: Initialize pacman keyring
+    - name: Initialize pacman keyring (minimal)
       run: |
         pacman-key --init
         pacman-key --populate archlinux
 
-    - name: Setup loop devices and optimize storage
+    - name: Create ultra-minimal arkdep build script
       run: |
-        # Ensure loop devices are available
-        ls -la /dev/loop*
-        modprobe loop || echo "Loop module already loaded"
-        
-        # Check available storage
-        echo "Initial storage information:"
-        df -h
-        
-        # Aggressive cleanup to free space
-        # Remove unnecessary packages and clean cache
-        pacman -Scc --noconfirm || true
-        
-        # Remove documentation, man pages, and other non-essential files
-        rm -rf /usr/share/man/* /usr/share/doc/* /usr/share/info/* /usr/share/locale/* || true
-        
-        # Clean tmp directories
-        rm -rf /tmp/* /var/tmp/* || true
-        
-        # Create /var/tmp if it doesn't exist
-        mkdir -p /var/tmp
-        
-        echo "Storage after aggressive cleanup:"
-        df -h
-        
-        # Check if we have enough space (warn but continue)
-        ROOT_AVAIL=$(df --output=avail / | tail -1)
-        VAR_AVAIL=$(df --output=avail /var/tmp | tail -1 || df --output=avail /tmp | tail -1)
-        
-        echo "Available space on root: ${ROOT_AVAIL} KiB"
-        echo "Available space on /var/tmp: ${VAR_AVAIL} KiB"
-        
-        if [ "$ROOT_AVAIL" -lt 10485760 ]; then
-          echo "Warning: Less than 10GB available on root"
-        fi
-        
-        if [ "$VAR_AVAIL" -lt 5242880 ]; then
-          echo "Warning: Less than 5GB available on /var/tmp"
-        fi
-
-    - name: Make arkdep-build executable
-      run: chmod +x ./arkdep-build
-
-    - name: Patch arkdep-build for GitHub Actions
-      run: |
-        # Create a patched version that works with limited storage
+        # Create a severely space-constrained version
         cp arkdep-build arkdep-build-original
         
-        # Patch the storage requirements to work with GitHub Actions (~14GB available)
-        sed -i 's/minimum_available_root_storage=.*/minimum_available_root_storage="10485760" # 10G/' arkdep-build
-        sed -i 's/minimum_available_var_storage=.*/minimum_available_var_storage="5242880" # 5G/' arkdep-build
-        sed -i 's/build_image_size=.*/build_image_size="8G"/' arkdep-build
+        # Patch for minimal storage (using only what GitHub Actions provides)
+        sed -i 's/minimum_available_root_storage=.*/minimum_available_root_storage="5242880" # 5G/' arkdep-build
+        sed -i 's/minimum_available_var_storage=.*/minimum_available_var_storage="2097152" # 2G/' arkdep-build
+        sed -i 's/build_image_size=.*/build_image_size="4G"/' arkdep-build
         
+        # Make it executable
+        chmod +x ./arkdep-build
+        
+        # Show what we changed
         echo "Patched storage requirements:"
         grep -E "minimum_available|build_image_size" arkdep-build
 
-    - name: Build AtomicArch image
+    - name: Pre-build storage check
       run: |
-        # Check if we're running as root
-        whoami
-        id
-        
-        # Show current storage before build
-        echo "Storage before build:"
+        echo "Final storage check before build:"
         df -h
+        echo "Free space on root (KiB):" $(df --output=avail / | tail -1)
+        echo "Free space on /var/tmp (KiB):" $(df --output=avail /var/tmp 2>/dev/null | tail -1 || echo "N/A")
         
-        # Run the build
-        ./arkdep-build atomicarch
+        # Ensure /var/tmp exists
+        mkdir -p /var/tmp
+
+    - name: Attempt minimal build
+      run: |
+        echo "Running as: $(whoami)"
+        echo "UID: $(id -u)"
+        
+        # Try the build with minimal settings
+        ./arkdep-build atomicarch || {
+          echo "Build failed, checking available space and logs..."
+          df -h
+          ls -la /var/tmp/ || true
+          exit 1
+        }
 
     - name: Generate build info
       id: build_info
@@ -128,23 +104,25 @@ jobs:
         echo "image_tag=${IMAGE_TAG}" >> $GITHUB_OUTPUT
         echo "artifact_name=atomicarch-${BUILD_DATE}" >> $GITHUB_OUTPUT
 
-    - name: List build output
+    - name: List and compress build artifacts
       run: |
         echo "Contents of target directory:"
         ls -la target/ || echo "No target directory found"
+        
         echo "Contents of current directory:"
         ls -la
-
-    - name: Compress build artifacts
-      run: |
-        if [ -d "target" ]; then
+        
+        if [ -d "target" ] && [ "$(ls -A target 2>/dev/null)" ]; then
           cd target
+          # Use maximum compression to save space
           tar -czf ../atomicarch-${{ steps.build_info.outputs.build_date }}.tar.gz *
           cd ..
+          echo "Created archive:"
           ls -la atomicarch-*.tar.gz
         else
-          echo "No target directory found, creating empty archive"
-          tar -czf atomicarch-${{ steps.build_info.outputs.build_date }}.tar.gz --files-from /dev/null
+          echo "No build artifacts found, creating placeholder archive"
+          echo "Build completed but no artifacts found" > build_info.txt
+          tar -czf atomicarch-${{ steps.build_info.outputs.build_date }}.tar.gz build_info.txt
         fi
 
     - name: Upload build artifacts
@@ -161,12 +139,14 @@ jobs:
         tag: ${{ steps.build_info.outputs.image_tag }}
         name: AtomicArch Build ${{ steps.build_info.outputs.build_date }}
         body: |
-          Automated daily build of AtomicArch
+          Automated daily build of AtomicArch (Minimal Storage Version)
           
           Build Date: ${{ steps.build_info.outputs.build_date }}
           Commit: ${{ github.sha }}
           
-          This is an automated build created by GitHub Actions using Arch Linux container.
+          This build uses minimal storage settings optimized for GitHub Actions.
+          
+          ⚠️ **Note**: This build may have reduced functionality due to storage constraints.
           
           ## Installation
           1. Download the tar.gz file
@@ -174,7 +154,7 @@ jobs:
           3. Follow arkdep installation instructions
         artifacts: atomicarch-${{ steps.build_info.outputs.build_date }}.tar.gz
         draft: false
-        prerelease: false
+        prerelease: true  # Mark as prerelease due to constraints
         allowUpdates: true
         token: ${{ secrets.GITHUB_TOKEN }}
 
@@ -193,11 +173,11 @@ jobs:
             per_page: 100
           });
           
-          // Keep only the latest 7 daily builds
+          // Keep only the latest 5 minimal builds (fewer due to space constraints)
           const atomicArchReleases = releases
             .filter(release => release.tag_name.startsWith('atomicarch-'))
             .sort((a, b) => new Date(b.created_at) - new Date(a.created_at))
-            .slice(7);
+            .slice(5);
           
           for (const release of atomicArchReleases) {
             console.log(`Deleting old release: ${release.tag_name}`);

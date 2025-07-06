@@ -29,7 +29,7 @@ jobs:
     - name: Install git and dependencies
       run: |
         pacman -Syu --noconfirm
-        pacman -S --noconfirm git base-devel btrfs-progs squashfs-tools xz wget curl
+        pacman -S --noconfirm git base-devel btrfs-progs squashfs-tools xz wget curl arch-install-scripts
 
     - name: Checkout repository
       uses: actions/checkout@v4

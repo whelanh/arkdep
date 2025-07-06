@@ -40,23 +40,41 @@ jobs:
       run: |
         sudo apt-get update
         sudo apt-get install -y \
-          arch-install-scripts \
           btrfs-progs \
           squashfs-tools \
           xz-utils \
           wget \
           curl \
-          systemd-container
+          systemd-container \
+          debootstrap
 
-    - name: Set up Arch Linux chroot environment
+    - name: Set up Arch Linux tools via AUR helper
       run: |
-        # Download and set up pacstrap
-        wget https://archlinux.org/packages/core/any/pacman/download/ -O pacman.pkg.tar.xz
-        sudo tar -xf pacman.pkg.tar.xz -C /
+        # Install arch-install-scripts from Ubuntu repos (if available) or build from source
+        # First try the package manager
+        sudo apt-get install -y arch-install-scripts || {
+          # If not available, download and build from source
+          wget https://github.com/archlinux/arch-install-scripts/archive/refs/heads/master.zip
+          unzip master.zip
+          cd arch-install-scripts-master
+          sudo make install
+          cd ..
+        }
         
-        # Install archlinux-keyring
-        wget https://archlinux.org/packages/core/any/archlinux-keyring/download/ -O keyring.pkg.tar.xz
-        sudo tar -xf keyring.pkg.tar.xz -C /
+        # Download pacman and keyring directly from mirrors
+        mkdir -p /tmp/arch-packages
+        cd /tmp/arch-packages
+        
+        # Use a mirror instead of the package page
+        wget https://mirror.rackspace.com/archlinux/core/os/x86_64/pacman-6.1.0-3-x86_64.pkg.tar.zst -O pacman.pkg.tar.zst || \
+        wget https://geo.mirror.pkgbuild.com/core/os/x86_64/pacman-6.1.0-3-x86_64.pkg.tar.zst -O pacman.pkg.tar.zst
+        
+        wget https://mirror.rackspace.com/archlinux/core/os/any/archlinux-keyring-20241203-1-any.pkg.tar.zst -O keyring.pkg.tar.zst || \
+        wget https://geo.mirror.pkgbuild.com/core/os/any/archlinux-keyring-20241203-1-any.pkg.tar.zst -O keyring.pkg.tar.zst
+        
+        # Extract packages
+        sudo tar -xf pacman.pkg.tar.zst -C /
+        sudo tar -xf keyring.pkg.tar.zst -C /
         
         # Initialize pacman keyring
         sudo pacman-key --init
