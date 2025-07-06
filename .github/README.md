@@ -4,9 +4,9 @@ This repository provides automated daily builds of AtomicArch ***configurations*
 customized Arkane Linux image and is only useful if you already have installed Arkane.  You should refer 
 to https://arkanelinux.org/ for full details on Arkane Linux.
 
-This customization was designed to emulate Bluefin-dx. In addition to the image, there is an init script to install 
-AtomicArch.  There is a second init script after you've installed and rebooted into this customized image to add useful Flatpaks,
-chezmoi, Brew etc.  These init scripts only have to be run once.
+This customization was designed to emulate Bluefin-dx. In addition to the image, ```init_atomicarch.sh``` can be used for the initial 
+deployment of AtomicArch.  Once AtomicArch is deployed and you've rebooted, ```init2_atomicarch.sh``` can be used to add useful Flatpaks,
+chezmoi, Brew etc.  ***These init scripts only have to be run once.***
 
 Note: The ```arkdep-build.d/atomicarch/extensions/post_install.sh``` adds two AUR packages during image build: rstudio-desktop-bin and r-rjava.
 
