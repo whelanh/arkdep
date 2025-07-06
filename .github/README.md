@@ -9,7 +9,7 @@ chezmoi, Brew etc.  ***These init scripts only have to be run once.***
 
 *Note: The ```arkdep-build.d/atomicarch/extensions/post_install.sh``` adds two AUR packages during image build: rstudio-desktop-bin and r-rjava.*
 
-An ```update.sh``` is provided to easily update your image on a regular basis.  After doing the build, it uses ```compare_pkgs.sh``` to report on package changes, additions, and deletions. It cleans up your arkdep/target directory and copies the most recent .tar.zst file to arkdep/cache using ```copy_cleanup_oneliner.sh```.  It then deploys the new image and invokes ```flatpak update```
+An ```update.sh``` is provided to easily update your image on a regular basis.  After doing the build, it uses ```compare_pkgs.sh``` to report on package changes, additions, and deletions. It runs ```copy_cleanup_oneliner.sh``` to clean up your ```arkdep/target``` directory and copy the most recent .tar.zst file to ```arkdep/cache```.  It then deploys the new image and invokes ```flatpak update```
 
 Probably the easiest way to use this repo is to fork it, clone your fork onto your local system, make adjustments for your needs and run the scripts locally.
 
