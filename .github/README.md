@@ -11,6 +11,10 @@ chezmoi, Brew etc.  ***These init scripts only have to be run once.***
 
 An ```update.sh``` is provided to easily update your image on a regular basis.  After doing the build, it uses ```compare_pkgs.sh``` to report on package changes, additions, and deletions. It cleans up your arkdep/target directory and copies the most recent .tar.zst file to arkdep/cache using ```copy_cleanup_oneliner.sh```.  It then deploys the new image and invokes ```flatpak update```
 
+Probably the easiest way to use this repo is to fork it, clone your fork onto your local system, make adjustments for your needs and run the scripts locally.
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------
+
 ### `The automated build function described below is not useful as it doesn't build a full image (due to Google's 14 Gb space constraint).`
 This repository's workflow in ```.github``` provides automated daily builds of AtomicArch ***configurations*** (not images) using GitHub Actions. 
 So the ***daily build is currently turned off***. Currently the only possible use would be to track changes in my configuration using the compare shell script.
