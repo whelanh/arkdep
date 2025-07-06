@@ -96,63 +96,62 @@ jobs:
         # Backup original
         cp arkdep-build arkdep-build-original
         
-        # Create an extremely minimal version using cat with stdin
-        cat > arkdep-build-ultra << 'SCRIPT_EOF'
-#!/usr/bin/env bash
-
-# Ultra-minimal arkdep build for GitHub Actions
-# This bypasses most storage checks and uses minimal settings
-
-set -e
-
-variant="$1"
-configsdir="$(readlink -m ./arkdep-build.d/)"
-variantdir="$configsdir/$variant"
-output_target="$(pwd)/target"
-
-# Basic checks
-if [[ $EUID -ne 0 ]]; then
-    echo "Must run as root"
-    exit 1
-fi
-
-if [[ ! -d "$variantdir" ]]; then
-    echo "Variant $variant does not exist"
-    exit 1
-fi
-
-# Create minimal output
-mkdir -p "$output_target"
-
-# For now, just create a minimal package list and structure
-echo "Creating minimal build for $variant..."
-
-# Create a minimal "build" - just copy the configuration
-BUILD_DATE=$(date +%Y%m%d%H%M%S)
-BUILD_NAME="atomicarch-minimal-${BUILD_DATE}"
-
-mkdir -p "$output_target/$BUILD_NAME"
-
-# Copy essential files
-cp -r "$variantdir"/* "$output_target/$BUILD_NAME/" 2>/dev/null || true
-
-# Create a build info file
-cat > "$output_target/$BUILD_NAME/build-info.txt" << BUILD_INFO_EOF
-Build Type: Minimal GitHub Actions Build
-Build Date: $BUILD_DATE
-Variant: $variant
-Storage Constrained: Yes
-Full Build: No
-
-This is a minimal configuration-only build due to GitHub Actions storage constraints.
-For a full build, use a system with more available storage.
-BUILD_INFO_EOF
-
-echo "Minimal build created at: $output_target/$BUILD_NAME"
-ls -la "$output_target/$BUILD_NAME"
-
-SCRIPT_EOF
-
+        # Create an extremely minimal version using echo statements
+        {
+          echo '#!/usr/bin/env bash'
+          echo ''
+          echo '# Ultra-minimal arkdep build for GitHub Actions'
+          echo '# This bypasses most storage checks and uses minimal settings'
+          echo ''
+          echo 'set -e'
+          echo ''
+          echo 'variant="$1"'
+          echo 'configsdir="$(readlink -m ./arkdep-build.d/)"'
+          echo 'variantdir="$configsdir/$variant"'
+          echo 'output_target="$(pwd)/target"'
+          echo ''
+          echo '# Basic checks'
+          echo 'if [[ $EUID -ne 0 ]]; then'
+          echo '    echo "Must run as root"'
+          echo '    exit 1'
+          echo 'fi'
+          echo ''
+          echo 'if [[ ! -d "$variantdir" ]]; then'
+          echo '    echo "Variant $variant does not exist"'
+          echo '    exit 1'
+          echo 'fi'
+          echo ''
+          echo '# Create minimal output'
+          echo 'mkdir -p "$output_target"'
+          echo ''
+          echo '# For now, just create a minimal package list and structure'
+          echo 'echo "Creating minimal build for $variant..."'
+          echo ''
+          echo '# Create a minimal "build" - just copy the configuration'
+          echo 'BUILD_DATE=$(date +%Y%m%d%H%M%S)'
+          echo 'BUILD_NAME="atomicarch-minimal-${BUILD_DATE}"'
+          echo ''
+          echo 'mkdir -p "$output_target/$BUILD_NAME"'
+          echo ''
+          echo '# Copy essential files'
+          echo 'cp -r "$variantdir"/* "$output_target/$BUILD_NAME/" 2>/dev/null || true'
+          echo ''
+          echo '# Create a build info file'
+          echo 'cat > "$output_target/$BUILD_NAME/build-info.txt" << EOF'
+          echo 'Build Type: Minimal GitHub Actions Build'
+          echo 'Build Date: $BUILD_DATE'
+          echo 'Variant: $variant'
+          echo 'Storage Constrained: Yes'
+          echo 'Full Build: No'
+          echo ''
+          echo 'This is a minimal configuration-only build due to GitHub Actions storage constraints.'
+          echo 'For a full build, use a system with more available storage.'
+          echo 'EOF'
+          echo ''
+          echo 'echo "Minimal build created at: $output_target/$BUILD_NAME"'
+          echo 'ls -la "$output_target/$BUILD_NAME"'
+        } > arkdep-build-ultra
+        
         chmod +x arkdep-build-ultra
         
         echo "Created ultra-minimal build script"
@@ -202,29 +201,29 @@ SCRIPT_EOF
         else
           echo "No build output, creating documentation archive"
           mkdir -p docs
-          cat > docs/README.md << 'DOCS_EOF'
-# AtomicArch Minimal Build
-
-This is a minimal configuration-only build created due to GitHub Actions storage constraints.
-
-## What's included:
-- Build configuration files
-- Package lists
-- Overlay files
-- Build metadata
-
-## What's NOT included:
-- Actual system image (requires ~50GB storage)
-- Bootable filesystem
-- Complete package installation
-
-## To create a full build:
-1. Clone this repository
-2. Run on a system with adequate storage (50GB+)
-3. Execute: `sudo arkdep-build atomicarch`
-
-Build Type: Configuration-only (GitHub Actions)
-DOCS_EOF
+          {
+            echo '# AtomicArch Minimal Build'
+            echo ''
+            echo 'This is a minimal configuration-only build created due to GitHub Actions storage constraints.'
+            echo ''
+            echo '## What'\''s included:'
+            echo '- Build configuration files'
+            echo '- Package lists'
+            echo '- Overlay files'
+            echo '- Build metadata'
+            echo ''
+            echo '## What'\''s NOT included:'
+            echo '- Actual system image (requires ~50GB storage)'
+            echo '- Bootable filesystem'
+            echo '- Complete package installation'
+            echo ''
+            echo '## To create a full build:'
+            echo '1. Clone this repository'
+            echo '2. Run on a system with adequate storage (50GB+)'
+            echo '3. Execute: `sudo arkdep-build atomicarch`'
+            echo ''
+            echo 'Build Type: Configuration-only (GitHub Actions)'
+          } > docs/README.md
           
           tar -czf atomicarch-minimal-${{ steps.build_info.outputs.build_date }}.tar.gz docs target 2>/dev/null || tar -czf atomicarch-minimal-${{ steps.build_info.outputs.build_date }}.tar.gz docs
         fi
