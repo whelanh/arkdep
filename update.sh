@@ -8,7 +8,7 @@ git push origin main
 
 sudo arkdep-build atomicarch
 
-# compare two most recent .tar.zst files
+# compare two most recent .pkgs files
 ./compare_pkgs.sh /home/hugh/Downloads/arkdep/target
 # copy most recent .tar.zst file
 #sudo cp /arkdep/target/"$(ls -t *.tar.zst | head -1)" /arkdep/cache/
