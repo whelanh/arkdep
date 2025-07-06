@@ -10,8 +10,7 @@ chezmoi, Brew etc.  These init scripts only have to be run once.
 
 Note: The ```arkdep-build.d/atomicarch/extensions/post_install.sh``` adds two AUR packages during image build: rstudio-desktop-bin and r-rjava.
 
-An ```update.sh``` is provided to easily update your image.  After doing the build, it reports on package changes, additions, and
-deletions. It cleans up your arkdep/target directory and copies the most recent .tar.zst file to arkdep/cache.  It then deploys it and invokes ```flatpak update```
+An ```update.sh``` is provided to easily update your image.  After doing the build, it uses ```compare_pkgs.sh``` to report on package changes, additions, and deletions. It cleans up your arkdep/target directory and copies the most recent .tar.zst file to arkdep/cache using ```copy_cleanup_oneliner.sh```.  It then deploys it and invokes ```flatpak update```
 
 ### `The automated build function is not useful as it doesn't build a full image (due to Google's 14 Gb space constraint).`
 So the ***daily build is turned off***. Currently the only possible use would be to track changes in my configuration using the compare shell script.
