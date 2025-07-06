@@ -1,21 +1,21 @@
-# Automated AtomicArch Builds
+AtomicArch
 
-This repository provides automated daily builds of AtomicArch ***configurations*** (not images) using GitHub Actions. AtomicArch is a
-customized Arkane Linux image and is only useful if you already have installed Arkane.  You should refer 
+AtomicArch is a customized Arkane Linux image and is only useful if you already have installed Arkane.  You should refer 
 to https://arkanelinux.org/ for full details on Arkane Linux.
 
 This customization was designed to emulate Bluefin-dx. In addition to the image, ```init_atomicarch.sh``` can be used for the initial 
 deployment of AtomicArch.  Once AtomicArch is deployed and you've rebooted, ```init2_atomicarch.sh``` can be used to add useful Flatpaks,
 chezmoi, Brew etc.  ***These init scripts only have to be run once.***
 
-Note: The ```arkdep-build.d/atomicarch/extensions/post_install.sh``` adds two AUR packages during image build: rstudio-desktop-bin and r-rjava.
+*Note: The ```arkdep-build.d/atomicarch/extensions/post_install.sh``` adds two AUR packages during image build: rstudio-desktop-bin and r-rjava.*
 
-An ```update.sh``` is provided to easily update your image.  After doing the build, it uses ```compare_pkgs.sh``` to report on package changes, additions, and deletions. It cleans up your arkdep/target directory and copies the most recent .tar.zst file to arkdep/cache using ```copy_cleanup_oneliner.sh```.  It then deploys the new image and invokes ```flatpak update```
+An ```update.sh``` is provided to easily update your image on a regular basis.  After doing the build, it uses ```compare_pkgs.sh``` to report on package changes, additions, and deletions. It cleans up your arkdep/target directory and copies the most recent .tar.zst file to arkdep/cache using ```copy_cleanup_oneliner.sh```.  It then deploys the new image and invokes ```flatpak update```
 
-### `The automated build function is not useful as it doesn't build a full image (due to Google's 14 Gb space constraint).`
-So the ***daily build is turned off***. Currently the only possible use would be to track changes in my configuration using the compare shell script.
+### `The automated build function described below is not useful as it doesn't build a full image (due to Google's 14 Gb space constraint).`
+This repository's workflow in ```.github``` provides automated daily builds of AtomicArch ***configurations*** (not images) using GitHub Actions. 
+So the ***daily build is currently turned off***. Currently the only possible use would be to track changes in my configuration using the compare shell script.
 
-
+### `The Workflow below can be ignored for now.`
 ## Workflow
 
 ### `build-atomicarch.yml` (Main Workflow)
