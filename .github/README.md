@@ -30,7 +30,7 @@ This repository provides automated daily builds of AtomicArch configurations usi
 - **Daily automated builds** - Stay up-to-date with configuration changes
 - **Manual triggering** - Build on-demand via GitHub Actions
 - **Automatic releases** - Downloadable archives with each build
-- **Smart cleanup** - Keeps only the latest 5 builds
+- **Smart cleanup** - Keeps only the latest 3 builds
 - **Change detection** - Triggers on atomicarch configuration updates
 - **Version comparison** - Track changes between builds
 
