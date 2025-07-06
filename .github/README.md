@@ -8,7 +8,7 @@ This customization was designed to emulate Bluefin-dx. In addition to the image,
 AtomicArch.  There is a second init script after you've installed and rebooted into this customized image to add useful Flatpaks,
 chezmoi, Brew etc.  These init scripts only have to be run once.
 
-The arkdep-build.d/atomicarch/extensions/post_install.sh does also add two AUR packages: rstudio-desktop-bin and r-rjava.
+Note: The arkdep-build.d/atomicarch/extensions/post_install.sh adds two AUR packages during image build: rstudio-desktop-bin and r-rjava.
 
 ### `The automated build function is not useful as it doesn't build a full image (due to Google's 14 Gb space constraint).`
 So the daily build is turned off. Currently the only possible use would be to track changes in my configuration using the compare shell script.
