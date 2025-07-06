@@ -110,7 +110,7 @@ Edit files in `arkdep-build.d/atomicarch/` to customize your build:
 - `bootstrap.list` - Bootstrap packages  
 - `pacman.conf` - Pacman configuration
 - `overlay/` - Custom files and configurations
-- `arkdep-build.d/atomicarch/extensions/post_install.sh` - Added AUR files
+- `extensions/post_install.sh` - Added AUR files
 
 ## Troubleshooting
 
