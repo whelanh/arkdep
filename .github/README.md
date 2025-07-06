@@ -89,7 +89,7 @@ schedule:
 ### Keep More/Fewer Builds
 Modify the cleanup section:
 ```javascript
-.slice(3);  // Keep 5 builds, change as needed
+.slice(3);  // Keep 3 builds, change as needed
 ```
 
 ### Modify AtomicArch Configuration
