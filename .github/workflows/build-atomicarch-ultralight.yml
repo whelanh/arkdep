@@ -22,8 +22,10 @@ jobs:
       image: archlinux:latest
       options: --privileged --device /dev/loop-control --device /dev/loop0 --device /dev/loop1 --device /dev/loop2 --device /dev/loop3 --device /dev/loop4 --device /dev/loop5 --device /dev/loop6 --device /dev/loop7
     permissions:
-      contents: read
+      contents: write
       packages: write
+      actions: read
+      security-events: write
 
     steps:
     - name: Extreme storage optimization
