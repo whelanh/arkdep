@@ -2,6 +2,7 @@
 
 cd ~/Downloads/arkdep
 git pull
+# stay up to date with upstream
 git fetch upstream
 git merge upstream/main
 git push origin main
