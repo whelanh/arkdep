@@ -2,15 +2,11 @@
 
 cd ~/Downloads/arkdep
 git pull
-# stay up to date with upstream
-git fetch upstream
-git merge upstream/main
-git push origin main
 
 sudo arkdep-build atomicarch
 
 # compare two most recent .pkgs files
-./compare_pkgs.sh /home/hugh/Downloads/arkdep/target
+./compare_pkgs.sh /home/$(whoami)/Downloads/arkdep/target
 
 # copy most recent .tar.zst file
 #sudo cp /arkdep/target/"$(ls -t *.tar.zst | head -1)" /arkdep/cache/
