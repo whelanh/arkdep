@@ -3,9 +3,9 @@
 cd Downloads
 git clone --recurse-submodules https://github.com/whelanh/arkdep.git
 cd arkdep
-sudo arkdep-build atomicarch
+sudo arkdep-build cachyatomic
 
-sudo cp target/atomicarch-202*.tar.zst /arkdep/cache/
+sudo cp target/cachyatomic-202*.tar.zst /arkdep/cache/
 
 cd /arkdep/cache
-sudo arkdep deploy cache atomicarch-202*.tar.zst
+sudo arkdep deploy cache cachyatomic-202*.tar.zst
