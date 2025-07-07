@@ -17,6 +17,14 @@ Probably the easiest way to use this repo is to fork it, clone your fork onto yo
 ```arkdep/arkdep-build.d/atomicarch/package.list```) and run the scripts locally.
 
 --------------------------------------------------------------------------------------------------------------------------------------------------------------
+### `CachyAtomic`
+
+If your cpu can take advantage of Znver4 (to find out, run ```/lib/ld-linux-x86-64.so.2 --help | grep supported``` on Arch-based systems), you can get everything AtomicArch
+offers but with the advantage of the Znver4 CachyOS optimized packages and kernel by installing CachyAtomic using the ```init_cachyatomic.sh``` script.
+
+See [https://wiki.cachyos.org/features/optimized_repos/](https://wiki.cachyos.org/features/optimized_repos/) for more information on the CachyOS repos.
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 ### `The automated build function described below is not useful as it doesn't build a full image (due to Google's 14 Gb space constraint).`
 This repository's workflow in ```.github``` provides automated daily builds of AtomicArch ***configurations*** (not images) using GitHub Actions. 
