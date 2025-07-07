@@ -16,7 +16,7 @@ brew install onedrive
 
 # Install Stockfish chess engine
 cd ~/Downloads
-https://github.com/official-stockfish/Stockfish.git
+git clone --recurse-submodules https://github.com/official-stockfish/Stockfish.git
 cp ~/OneDrive/makeSF.sh .
 chmod +x ./makeSF.sh
 ./makeSF.sh
