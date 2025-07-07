@@ -10,7 +10,7 @@ DEST_DIR="/arkdep/cache"
 NEWEST=$(find . -name "*.tar.zst" -type f -printf "%T@ %p\n" | sort -nr | head -1 | cut -d' ' -f2-)
 THRESHOLD_TIME=$(find . -name "*.tar.zst" -type f -printf "%T@ %p\n" | sort -nr | head -2 | tail -1 | cut -d' ' -f1)
 
-cd /home/$(whoami)/Downloads/arkdep/target
+cd /home/$(whoami)/Downloads/arkdep/target/
 echo "Copying $(basename "$NEWEST") to $DEST_DIR"
 sudo cp "$NEWEST" "$DEST_DIR"
 
