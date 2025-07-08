@@ -20,8 +20,11 @@ This customization was designed to emulate Bluefin-dx. In addition to the image,
 deployment of AtomicArch.  Once AtomicArch is deployed and you've rebooted, ```init2.sh``` can be used to add useful Flatpaks,
 chezmoi, Brew etc.  ***These init scripts only have to be run once.***
 
-*Note: The ```arkdep-build.d/atomicarch/extensions/post_install.sh``` adds two AUR packages during image build: rstudio-desktop-bin and r-rjava.  Also, AtomicArch's ```pacman.conf``` file enables the Arch testing 
-repositories.*
+Note: 
+   - The ```arkdep-build.d/atomicarch/extensions/post_install.sh``` adds two AUR packages during image build: rstudio-desktop-bin and r-rjava.  
+   - ```pacman.conf``` file enables the Arch testing 
+repositories.
+   - mirrors have been changed to US mirrors based on rate-mirrors
 
 An ```update_atomicarch.sh``` is provided to easily update your image on a regular basis.  After doing the build, it uses ```compare_pkgs.sh``` to report on package changes, additions, and deletions. It runs ```copy_cleanup_oneliner.sh``` to clean up your ```arkdep/target``` directory and copy the most recent .tar.zst file to ```arkdep/cache```.  It then deploys the new image and invokes ```flatpak update```
 
