@@ -1,11 +1,20 @@
-<p align="center" width="100%">
-  <img heigth="33%" src="./Arkane.png"> 
-</p>
+<div align="center">
+	<a href="https://arkanelinux.org" align="center">
+		<center align="center">
+			<picture>
+			 	<img src="https://raw.githubusercontent.com/arkanelinux/artwork/main/originals/arkdep-logo-small.png" alt="Arkdep Logo" align="center" height="200">
+			</picture>
+		</center>
+	</a>
+	<br>
+	<h1 align="center"><center>Arkdep</center></h1>
+</div>
+<br>
+
 
 ### `AtomicArch`
 
-AtomicArch is a customized Arkane Linux image and is only useful if you've already installed Arkane.  You should refer 
-to https://arkanelinux.org/ for full details on Arkane Linux. This repo is just a modified fork of [arkanelinux/arkdep](https://github.com/arkanelinux/arkdep).
+AtomicArch is a customized Arkane Linux image and is only useful if you've already installed Arkane Linux -- an immutable version of Arch Linux. For more on Arkane and documentation refer to the [Arkane Linux Arkdep Documentation](https://docs.arkanelinux.org/arkdep/arkdep-usage/). This repo is just a modified fork of [arkanelinux/arkdep](https://github.com/arkanelinux/arkdep).
 
 This customization was designed to emulate Bluefin-dx. In addition to the image, ```init_atomicarch.sh``` can be used for the initial 
 deployment of AtomicArch.  Once AtomicArch is deployed and you've rebooted, ```init2.sh``` can be used to add useful Flatpaks,
@@ -29,139 +38,3 @@ You can still run ```init2.sh```, but will use ```update_cachyatomic.sh``` to up
 See [https://wiki.cachyos.org/features/optimized_repos/](https://wiki.cachyos.org/features/optimized_repos/) for more information on the CachyOS repos.
 
 --------------------------------------------------------------------------------------------------------------------------------------------------------------
-
-### `The automated build function described below is not useful as it doesn't build a full image (due to Google's 14 Gb space constraint).`
-This repository's workflow in ```.github``` provides automated daily builds of AtomicArch ***configurations*** (not images) using GitHub Actions. 
-So the ***daily build is currently turned off***. Currently the only possible use would be to track changes in my configuration using the compare shell script.
-
-### `The Workflow below can be ignored for now.`
-## Workflow
-
-### `build-atomicarch.yml` (Main Workflow)
-- **Runs daily at 2:00 AM UTC** automatically
-- **Can be triggered manually** via GitHub Actions interface  
-- **Creates configuration-only builds** optimized for GitHub Actions storage constraints
-- **Validates configurations** without requiring 50GB+ storage
-- **Generates releases** with downloadable configuration archives
-
-## What You Get
-
-**Configuration-Only Builds** containing:
-- ✅ All AtomicArch configuration files
-- ✅ Package lists and dependencies
-- ✅ Overlay files and customizations  
-- ✅ Build scripts and metadata
-- ✅ Validation that configurations work
-
-**NOT included** (due to storage constraints):
-- ❌ Complete system images (requires 50GB+ storage)
-- ❌ Bootable filesystems
-- ❌ Full package installations
-
-## Features
-
-- **Daily automated builds** - Stay up-to-date with configuration changes
-- **Manual triggering** - Build on-demand via GitHub Actions
-- **Automatic releases** - Downloadable archives with each build
-- **Smart cleanup** - Keeps only the latest 3 builds
-- **Change detection** - Triggers on atomicarch configuration updates
-- **Version comparison** - Track changes between builds
-
-## Build Artifacts
-
-Each successful build creates:
-1. **GitHub Release** with timestamp tag (e.g., `atomicarch-minimal-20250706021500`)
-2. **Compressed configuration archive** (a few MB)
-3. **Build artifacts** available for 30 days in Actions tab
-4. **Build validation** - ensures your configuration works
-
-## Manual Triggering
-
-1. Go to your repository on GitHub
-2. Click **"Actions"** tab
-3. Select **"Build AtomicArch Daily"**
-4. Click **"Run workflow"**
-5. Select branch and click **"Run workflow"**
-
-## Using Build Products
-
-### Download Configuration Archives
-```bash
-# Get latest release
-curl -L "https://github.com/whelanh/arkdep/releases/latest/download/atomicarch-minimal-*.tar.gz" -o latest-config.tar.gz
-
-# Extract configuration
-tar -xzf latest-config.tar.gz
-```
-
-### Create Full System Build
-```bash
-# On a system with 50GB+ storage
-tar -xzf atomicarch-minimal-*.tar.gz
-cd arkdep  # or extracted directory
-sudo arkdep-build atomicarch
-```
-
-### Compare Versions
-```bash
-# Use the provided comparison tool
-./compare-versions.sh              # Compare latest two
-./compare-versions.sh -v           # Detailed comparison
-./compare-versions.sh -d package.list  # Specific file diff
-```
-
-## Customization
-
-### Change Build Schedule
-Edit `.github/workflows/build-atomicarch.yml`:
-```yaml
-schedule:
-  - cron: '0 2 * * *'  # Daily at 2:00 AM UTC
-```
-
-### Keep More/Fewer Builds
-Modify the cleanup section:
-```javascript
-.slice(3);  // Keep 3 builds, change as needed
-```
-
-### Modify AtomicArch Configuration
-Edit files in `arkdep-build.d/atomicarch/` to customize your build:
-- `package.list` - Main packages
-- `bootstrap.list` - Bootstrap packages  
-- `pacman.conf` - Pacman configuration
-- `overlay/` - Custom files and configurations
-- `extensions/post_install.sh` - Added AUR files
-
-## Troubleshooting
-
-### Build Failures
-1. Check **Actions** tab for detailed error logs
-2. Verify configuration files are valid
-3. Test locally: `sudo arkdep-build atomicarch`
-4. Use version comparison to see what changed
-
-### No Releases Created
-- Ensure repository has **Actions** enabled
-- Check workflow permissions in repository settings
-- Verify the workflow completed successfully
-
-### Comparison Tool Issues
-```bash
-# Ensure dependencies are available
-which curl diff comm sort grep
-
-# Make script executable
-chmod +x compare-versions.sh
-```
-
-## Architecture
-
-This system provides:
-- **Daily validation** of AtomicArch configurations
-- **Lightweight builds** that fit GitHub Actions constraints  
-- **Version tracking** for configuration changes
-- **Foundation** for full builds on proper hardware
-- **Change monitoring** through comparison tools
-
-The approach solves the "50GB requirement vs 14GB available" problem by creating configuration-only builds that validate your setup and provide everything needed for full builds elsewhere.
