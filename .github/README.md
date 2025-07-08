@@ -11,13 +11,14 @@
 </div>
 <br>
 
+## AtomicArch
+<div align="center">
+	<p style="text-align: center;">
+ 	    <img src="atomicArch.jpg" style="width: 25%; height: auto;>
+	</p>
+</div>
 
-   <p style="text-align: center;">
-       <img src="PeTEQMeU0jeA02PxXYPe--0--r9zbq.jpg">
-   </p>
-
-### `AtomicArch`
-
+		    
 AtomicArch is a customized Arkane Linux image and is only useful if you've already installed Arkane Linux -- an immutable version of Arch Linux. For more on Arkane and documentation refer to the [Arkane Linux Arkdep Documentation](https://docs.arkanelinux.org/arkdep/arkdep-usage/). This repo is just a modified fork of [arkanelinux/arkdep](https://github.com/arkanelinux/arkdep).
 
 This customization was designed to emulate Bluefin-dx. In addition to the image, ```init_atomicarch.sh``` can be used for the initial 
