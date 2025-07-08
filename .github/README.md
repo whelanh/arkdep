@@ -12,6 +12,10 @@
 <br>
 
 
+   <p style="text-align: center;">
+       <img src="PeTEQMeU0jeA02PxXYPe--0--r9zbq.jpg">
+   </p>
+
 ### `AtomicArch`
 
 AtomicArch is a customized Arkane Linux image and is only useful if you've already installed Arkane Linux -- an immutable version of Arch Linux. For more on Arkane and documentation refer to the [Arkane Linux Arkdep Documentation](https://docs.arkanelinux.org/arkdep/arkdep-usage/). This repo is just a modified fork of [arkanelinux/arkdep](https://github.com/arkanelinux/arkdep).
