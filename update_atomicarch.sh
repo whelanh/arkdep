@@ -1,5 +1,15 @@
 #!/bin/bash
 
+checkupdates
+yay -Qua
+
+read -p "Do you want to proceed with the updates? (y/N): " answer
+
+if [[ "$answer" =~ ^[Nn]$ || -z "$answer" ]]; then
+    echo "Update canceled."
+    exit 0
+fi
+
 cd ~/Downloads/arkdep
 git pull
 
