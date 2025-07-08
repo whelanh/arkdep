@@ -12,13 +12,13 @@
 <br>
 
 ## AtomicArch
+
 <div align="center">
 	<p style="text-align: center;">
- 	    <img src="atomicArch.jpg" style="width: 25%; height: auto;>
+ 	    <img src="atomicArch.jpg" style="width: 25%; height: auto;">
 	</p>
 </div>
-
-		    
+<div style="text-align: left;">		    
 AtomicArch is a customized Arkane Linux image and is only useful if you've already installed Arkane Linux -- an immutable version of Arch Linux. For more on Arkane and documentation refer to the [Arkane Linux Arkdep Documentation](https://docs.arkanelinux.org/arkdep/arkdep-usage/). This repo is just a modified fork of [arkanelinux/arkdep](https://github.com/arkanelinux/arkdep).
 
 This customization was designed to emulate Bluefin-dx. In addition to the image, ```init_atomicarch.sh``` can be used for the initial 
@@ -35,15 +35,22 @@ An ```update_atomicarch.sh``` is provided to easily update your image on a regul
 
 Probably the easiest way to use this repo is to fork it, clone your fork onto your local system, make adjustments for your needs (especially the bottom of 
 ```arkdep/arkdep-build.d/atomicarch/package.list```) and run the scripts locally.
-
+</div>
 --------------------------------------------------------------------------------------------------------------------------------------------------------------
-### `CachyAtomic`
 
+## CachyAtomic
+
+<div align="center">
+	<p style="text-align: center;">
+ 	    <img src="cachyAtomic.jpg" style="width: 25%; height: auto;">
+	</p>
+</div>
+<div style="text-align: left;">		
 If your cpu can take advantage of Znver4 (to find out, run ```/lib/ld-linux-x86-64.so.2 --help | grep supported``` on Arch-based systems), you can get everything AtomicArch
 offers but with the advantage of CachyOS Znver4-optimized packages and kernel by installing CachyAtomic using the ```init_cachyatomic.sh``` script.
 
 You can still run ```init2.sh```, but will use ```update_cachyatomic.sh``` to update your system. *CachyAtomic does not enable the Arch testing repos (which AtomicArch does).*
 
 See [https://wiki.cachyos.org/features/optimized_repos/](https://wiki.cachyos.org/features/optimized_repos/) for more information on the CachyOS repos.
-
+</div>
 --------------------------------------------------------------------------------------------------------------------------------------------------------------
