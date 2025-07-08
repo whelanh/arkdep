@@ -1,11 +1,12 @@
 #!/bin/bash
 
+cd ~/Downloads/arkdep
 git pull
 
 sudo arkdep-build cachyatomic
 
 # compare two most recent .pkgs files
-./compare_pkgs.sh ./target
+./compare_pkgs.sh /home/$(whoami)/Downloads/arkdep/target
 
 # copy most recent .tar.zst file
 #sudo cp /arkdep/target/"$(ls -t *.tar.zst | head -1)" /arkdep/cache/
