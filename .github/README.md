@@ -10,6 +10,7 @@
 	<h1 align="center"><center>Arkdep</center></h1>
 </div>
 <br>
+<hr>
 
 ## AtomicArch
 
@@ -36,7 +37,7 @@ An ```update_atomicarch.sh``` is provided to easily update your image on a regul
 
 Probably the easiest way to use this repo is to fork it, clone your fork onto your local system, make adjustments for your needs (especially the bottom of 
 ```arkdep/arkdep-build.d/atomicarch/package.list``` -- see below) and run the scripts locally.
-</div>
+
 <hr>
 
 ## CachyAtomic
