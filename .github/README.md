@@ -56,3 +56,86 @@ You can still run ```init2.sh```, but will use ```update_cachyatomic.sh``` to up
 See [https://wiki.cachyos.org/features/optimized_repos/](https://wiki.cachyos.org/features/optimized_repos/) for more information on the CachyOS repos.
 </div>
 --------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+arkdep/arkdep-build.d/atomicarch/package.list changes:
+```
+# Atomic Arch (custom)
+bat
+base-devel
+bc
+chezmoi
+duf
+eza
+fastfetch
+fuse2
+gcc-fortran
+gnome-weather
+gnome-clocks
+gnome-tweaks
+kmymoney
+lftp
+micro
+python-colorama
+python-numpy
+python-pandas
+python-pip
+python-pipenv
+python-prettytable
+python-pyperclip
+python-reportlab
+python-suds
+python-svglib
+r
+rclone
+sqlitebrowser
+tailscale
+ttf-meslo-nerd
+virt-manager
+virt-viewer
+```
+arkdep-build.d/atomicarch/extensions/post_install.sh changes:
+
+```
+# Set list of AUR packages to install
+aur_packages=('yay-bin' 'rstudio-desktop-bin' 'r-rjava')
+```
+arkdep-build.d/atomicarch/pacman.conf changes:
+```
+[core-testing]
+Server = https://cdnmirror.com/archlinux/$repo/os/$arch
+
+
+[core]
+Server = https://cdnmirror.com/archlinux/$repo/os/$arch
+
+
+[extra-testing]
+Server = https://cdnmirror.com/archlinux/$repo/os/$arch
+
+
+[extra]
+Server = https://cdnmirror.com/archlinux/$repo/os/$arch
+
+
+#[testing]
+#Server = https://cdnmirror.com/archlinux/$repo/os/$arch
+
+
+#[community-testing]
+#Server = https://cdnmirror.com/archlinux/$repo/os/$arch
+
+
+#[community]
+#Server = https://cdnmirror.com/archlinux/$repo/os/$arch
+
+
+# If you want to run 32 bit applications on your x86_64 system,
+# enable the multilib repositories as required here.
+
+[multilib-testing]
+Server = https://cdnmirror.com/archlinux/$repo/os/$arch
+
+
+[multilib]
+Server = https://cdnmirror.com/archlinux/$repo/os/$arch
+```
