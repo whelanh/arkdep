@@ -19,7 +19,8 @@
 	</p>
 </div>
 <div style="text-align: left;">		    
-AtomicArch is a customized Arkane Linux image and is only useful if you've already installed Arkane Linux -- an immutable version of Arch Linux. For more on Arkane and documentation refer to the [Arkane Linux Arkdep Documentation](https://docs.arkanelinux.org/arkdep/arkdep-usage/). This repo is just a modified fork of [arkanelinux/arkdep](https://github.com/arkanelinux/arkdep).
+
+AtomicArch is a customized Arkane Linux image and is only useful if you've already installed Arkane Linux -- an immutable version of Arch Linux. For more on Arkane and documentation refer to the [Arkane Linux Arkdep Documentation](https://docs.arkanelinux.org/arkdep/arkdep-usage/). This repo is just a modified fork of [arkanelinux/arkdep](https://github.com/arkanelinux/arkdep).<br>
 
 This customization was designed to emulate Bluefin-dx. In addition to the image, ```init_atomicarch.sh``` can be used for the initial 
 deployment of AtomicArch.  Once AtomicArch is deployed and you've rebooted, ```init2.sh``` can be used to add useful Flatpaks,
@@ -46,6 +47,7 @@ Probably the easiest way to use this repo is to fork it, clone your fork onto yo
 	</p>
 </div>
 <div style="text-align: left;">		
+	
 If your cpu can take advantage of Znver4 (to find out, run ```/lib/ld-linux-x86-64.so.2 --help | grep supported``` on Arch-based systems), you can get everything AtomicArch
 offers but with the advantage of CachyOS Znver4-optimized packages and kernel by installing CachyAtomic using the ```init_cachyatomic.sh``` script.
 
