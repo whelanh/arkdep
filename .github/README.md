@@ -9,7 +9,7 @@
 	<br>
 	<h1 align="center"><center>Arkdep</center></h1>
 </div>
-<br>
+
 <hr>
 
 ## AtomicArch
