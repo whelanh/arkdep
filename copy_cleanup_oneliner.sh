@@ -16,7 +16,7 @@ NEWEST_FILE=$(basename "$NEWEST")
 echo "Copying $NEWEST_FILE to $DEST_DIR"
 sudo cp "$NEWEST_FILE" "$DEST_DIR"
 
-echo "Removing files older than $(date -d "@$THRESHOLD_TIME" '+%Y-%m-%d %H:%M:%S')"
-find . -maxdepth 1 -type f -not -newermt "@$THRESHOLD_TIME" -exec sudo rm -r  -v {} \;
+#echo "Removing files older than $(date -d "@$THRESHOLD_TIME" '+%Y-%m-%d %H:%M:%S')"
+#find . -maxdepth 1 -type f -not -newermt "@$THRESHOLD_TIME" -exec sudo rm -r  -v {} \;
 
 echo "Done!"
