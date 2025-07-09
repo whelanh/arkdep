@@ -54,7 +54,7 @@ If your cpu can take advantage of Znver4 (to find out, run ```/lib/ld-linux-x86-
 offers but with the advantage of CachyOS Znver4-optimized packages and kernel by installing CachyAtomic using the ```init_system.sh``` script with "cachyatomic" as an argument.
 If you don't have a Znver4 capable cpu, but you have a cpu that can support v3 optimizations, you can use ```init_system.sh``` with the "cachyatomicv3" argument.
 
-You can still run ```init2.sh```, and use ```update_system.sh``` (again using the "cachyatomic" argument) to update your system. 
+You can still run ```init2.sh```, and use ```update_system.sh``` (again using the "cachyatomic" or "cachyatomicv3" argument) to update your system. 
 
 See [https://wiki.cachyos.org/features/optimized_repos/](https://wiki.cachyos.org/features/optimized_repos/) for more information on the CachyOS repos.
 </div>
