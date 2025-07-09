@@ -1,6 +1,5 @@
 #!/bin/bash
 
-<<<<<<< HEAD:update_system.sh
 # Check if argument is provided
 if [ $# -eq 0 ]; then
     echo "Usage: $0 <architecture>"
@@ -11,7 +10,6 @@ fi
 # Get the architecture argument
 ARCH="$1"
 
-=======
 checkupdates
 yay -Qua
 
@@ -22,7 +20,6 @@ if [[ "$answer" =~ ^[Nn]$ || -z "$answer" ]]; then
     exit 0
 fi
 
->>>>>>> c7feec2be52fa871d7ced9c31765e3689363be66:update_atomicarch.sh
 cd ~/Downloads/arkdep
 git pull
 sudo arkdep-build "$ARCH"
