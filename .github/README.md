@@ -54,7 +54,7 @@ Probably the easiest way to use this repo is to fork it, clone your fork onto yo
 If your cpu can take advantage of Znver4 (to find out, run ```/lib/ld-linux-x86-64.so.2 --help | grep supported``` on Arch-based systems), you can get everything AtomicArch
 offers but with the advantage of CachyOS Znver4-optimized packages and kernel by installing CachyAtomic using the ```init_system.sh``` script with "cachyatomic" as an argument.
 
-You can still run ```init2.sh```, and use ```update_system.sh``` (again using the "cachyatomic" argument) to update your system. *CachyAtomic does not enable the Arch testing repos (which AtomicArch does).*
+You can still run ```init2.sh```, and use ```update_system.sh``` (again using the "cachyatomic" argument) to update your system. 
 
 See [https://wiki.cachyos.org/features/optimized_repos/](https://wiki.cachyos.org/features/optimized_repos/) for more information on the CachyOS repos.
 </div>
@@ -105,40 +105,41 @@ aur_packages=('yay-bin' 'rstudio-desktop-bin' 'r-rjava')
 arkdep-build.d/atomicarch/pacman.conf changes:
 ```
 [core-testing]
-Server = https://cdnmirror.com/archlinux/$repo/os/$arch
+Server = http://arch.mirror.constant.com/$repo/os/$arch
 
 
 [core]
-Server = https://cdnmirror.com/archlinux/$repo/os/$arch
+Server = http://arch.mirror.constant.com/$repo/os/$arch
 
 
 [extra-testing]
-Server = https://cdnmirror.com/archlinux/$repo/os/$arch
+Server = http://arch.mirror.constant.com/$repo/os/$arch
 
 
 [extra]
-Server = https://cdnmirror.com/archlinux/$repo/os/$arch
+Server = http://arch.mirror.constant.com/$repo/os/$arch
 
 
 #[testing]
-#Server = https://cdnmirror.com/archlinux/$repo/os/$arch
+#Server = http://arch.mirror.constant.com/$repo/os/$arch
 
 
 #[community-testing]
-#Server = https://cdnmirror.com/archlinux/$repo/os/$arch
+#Server = http://arch.mirror.constant.com/$repo/os/$arch
 
 
 #[community]
-#Server = https://cdnmirror.com/archlinux/$repo/os/$arch
+#Server = http://arch.mirror.constant.com/$repo/os/$arch
 
 
 # If you want to run 32 bit applications on your x86_64 system,
 # enable the multilib repositories as required here.
 
 [multilib-testing]
-Server = https://cdnmirror.com/archlinux/$repo/os/$arch
+Server = http://arch.mirror.constant.com/$repo/os/$arch
 
 
 [multilib]
-Server = https://cdnmirror.com/archlinux/$repo/os/$arch
+Server = http://arch.mirror.constant.com/$repo/os/$arch
+
 ```
