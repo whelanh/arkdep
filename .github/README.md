@@ -90,7 +90,6 @@ python-svglib
 r
 rclone
 sqlitebrowser
-tailscale
 ttf-meslo-nerd
 virt-manager
 virt-viewer
