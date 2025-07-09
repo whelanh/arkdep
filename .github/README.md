@@ -24,7 +24,6 @@
 AtomicArch is a customized Arkane Linux image and is only useful if you've already installed Arkane Linux -- an immutable version of Arch Linux. For more on Arkane and documentation refer to the [Arkane Linux Arkdep Documentation](https://docs.arkanelinux.org/arkdep/arkdep-usage/). This repo is just a modified fork of [arkanelinux/arkdep](https://github.com/arkanelinux/arkdep).<br>
 
 This customization was designed to emulate Bluefin-dx. In addition to the image, several scripts are provided.  
-### **These scripts assume you've cloned this repo to your ~/Downloads directory.**   
 
 ```init_system.sh``` with "atomicarch" as an argument can be used for the initial deployment of AtomicArch.  Once AtomicArch is deployed and you've rebooted, ```init2.sh``` can be used to add useful Flatpaks,
 chezmoi, Brew etc.  ***These init scripts only have to be run once.***
