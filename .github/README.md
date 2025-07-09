@@ -36,7 +36,7 @@ repositories.
 
 An ```update_system.sh``` script (use "atomicarch" as the argument) is provided to easily update your image on a regular basis.  After doing the build, it uses ```compare_pkgs.sh``` to report on package changes, additions, and deletions. It runs ```copy_cleanup_oneliner.sh``` to clean up your ```arkdep/target``` directory and copy the most recent .tar.zst file to ```arkdep/cache```.  It then deploys the new image and invokes ```flatpak update```
 
-Probably the easiest way to use this repo is to fork it, clone your fork onto your local ```~/Downlaods``` directory, make adjustments for your needs (especially the bottom of 
+Probably the easiest way to use this repo is to fork it, clone your fork to your machine, make adjustments for your needs (especially the bottom of 
 ```arkdep/arkdep-build.d/atomicarch/package.list``` -- see below) and run the scripts locally.
 
 <hr>
