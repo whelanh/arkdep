@@ -31,3 +31,4 @@ sudo arkdep-build "$ARCH"
 cd /arkdep/cache
 sudo arkdep deploy cache "$(ls -t *.tar.zst | head -1)"
 flatpak update
+brew update && brew upgrade
