@@ -23,8 +23,7 @@
 
 AtomicArch is a customized Arkane Linux image and is only useful if you've already installed Arkane Linux -- an immutable version of Arch Linux. For more on Arkane and documentation refer to the [Arkane Linux Arkdep Documentation](https://docs.arkanelinux.org/arkdep/arkdep-usage/). This repo is just a modified fork of [arkanelinux/arkdep](https://github.com/arkanelinux/arkdep).<br>
 
-This customization was designed to emulate Bluefin-dx. In addition to the image, ```init_atomicarch.sh``` can be used for the initial 
-deployment of AtomicArch.  Once AtomicArch is deployed and you've rebooted, ```init2.sh``` can be used to add useful Flatpaks,
+This customization was designed to emulate Bluefin-dx. In addition to the image, ```init_system.sh``` with "atomicarch" as an argument can be used for the initial deployment of AtomicArch.  Once AtomicArch is deployed and you've rebooted, ```init2.sh``` can be used to add useful Flatpaks,
 chezmoi, Brew etc.  ***These init scripts only have to be run once.***
 
 Note: 
@@ -33,7 +32,7 @@ Note:
 repositories.
    - mirrors have been changed to US mirrors based on rate-mirrors
 
-An ```update_atomicarch.sh``` is provided to easily update your image on a regular basis.  After doing the build, it uses ```compare_pkgs.sh``` to report on package changes, additions, and deletions. It runs ```copy_cleanup_oneliner.sh``` to clean up your ```arkdep/target``` directory and copy the most recent .tar.zst file to ```arkdep/cache```.  It then deploys the new image and invokes ```flatpak update```
+An ```update_system.sh``` script (use "atomicarch" as the argument) is provided to easily update your image on a regular basis.  After doing the build, it uses ```compare_pkgs.sh``` to report on package changes, additions, and deletions. It runs ```copy_cleanup_oneliner.sh``` to clean up your ```arkdep/target``` directory and copy the most recent .tar.zst file to ```arkdep/cache```.  It then deploys the new image and invokes ```flatpak update```
 
 Probably the easiest way to use this repo is to fork it, clone your fork onto your local system, make adjustments for your needs (especially the bottom of 
 ```arkdep/arkdep-build.d/atomicarch/package.list``` -- see below) and run the scripts locally.
@@ -50,9 +49,9 @@ Probably the easiest way to use this repo is to fork it, clone your fork onto yo
 <div style="text-align: left;">		
 	
 If your cpu can take advantage of Znver4 (to find out, run ```/lib/ld-linux-x86-64.so.2 --help | grep supported``` on Arch-based systems), you can get everything AtomicArch
-offers but with the advantage of CachyOS Znver4-optimized packages and kernel by installing CachyAtomic using the ```init_cachyatomic.sh``` script.
+offers but with the advantage of CachyOS Znver4-optimized packages and kernel by installing CachyAtomic using the ```init_system.sh``` script with "cachyatomic" as an argument.
 
-You can still run ```init2.sh```, but will use ```update_cachyatomic.sh``` to update your system. *CachyAtomic does not enable the Arch testing repos (which AtomicArch does).*
+You can still run ```init2.sh```, and use ```update_system.sh``` (again using the "cachyatomic" argument) to update your system. *CachyAtomic does not enable the Arch testing repos (which AtomicArch does).*
 
 See [https://wiki.cachyos.org/features/optimized_repos/](https://wiki.cachyos.org/features/optimized_repos/) for more information on the CachyOS repos.
 </div>
