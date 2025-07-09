@@ -10,6 +10,7 @@ fi
 # Get the architecture argument
 ARCH="$1"
 
+echo "Checking on updates to see if worth doing...."
 checkupdates
 yay -Qua
 
