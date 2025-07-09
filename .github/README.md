@@ -52,6 +52,7 @@ Probably the easiest way to use this repo is to fork it, clone your fork to your
 	
 If your cpu can take advantage of Znver4 (to find out, run ```/lib/ld-linux-x86-64.so.2 --help | grep supported``` on Arch-based systems), you can get everything AtomicArch
 offers but with the advantage of CachyOS Znver4-optimized packages and kernel by installing CachyAtomic using the ```init_system.sh``` script with "cachyatomic" as an argument.
+If you don't have a Znver4 capable cpu, but you have a cpu that can support v3 optimizations, you can use ```init_system.sh``` with the "cachyatomicv3" argument.
 
 You can still run ```init2.sh```, and use ```update_system.sh``` (again using the "cachyatomic" argument) to update your system. 
 
