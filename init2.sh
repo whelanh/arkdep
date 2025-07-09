@@ -13,6 +13,9 @@ pip install chess --break-system-packages
 # Install Brew.  Used for OneDrive integration (could also do Tailscale that way)
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 brew install onedrive
+brew install brew
+brew services start tailscale
+sudo tailscale up --ssh
 
 # Install Stockfish chess engine
 cd ~/Downloads
