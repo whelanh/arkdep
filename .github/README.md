@@ -1,4 +1,4 @@
-)0p<div align="center">
+<div align="center">
 	<a href="https://arkanelinux.org" align="center">
 		<center align="center">
 			<picture>
